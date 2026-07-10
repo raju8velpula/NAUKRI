@@ -1,0 +1,61 @@
+name: Automation jobs
+
+on:
+  workflow_dispatch: 
+    inputs:
+      tag:
+        description: Tag Name
+        default: Teju the princess
+        required: true
+        type: string
+      BRANCH:
+        type: string
+        description: 'enter branch name'
+        required: false
+        default: "master"
+      build:
+        description: build name
+        default: 1.41.7
+        required: false
+        type: string
+      run:
+        description: Failed Run
+        type: boolean
+        default: true
+        required: true
+      env:
+        description: Environment
+        type: environment
+        required: true
+run-name: "Tag: ${{inputs.tag}}, Build: ${{inputs.build}}, run: ${{inputs.run}}, evn: ${{inputs.env}}"
+jobs:
+  raju-execution:
+    timeout-minutes: 7200
+    runs-on: ubuntu-latest
+    env:
+      LOCAL_PATH: /tmp/reports
+    steps: 
+      - name: Checkout to Repo
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.BRANCH }}
+      
+      - name: Verify branch
+        run: |
+          echo "Input branch: ${{ inputs.BRANCH }}"
+          echo "Current branch:"
+          git branch --show-current
+          echo "Current commit:"
+          git rev-parse HEAD
+          git log -1 --oneline
+      
+      - name: Install Chrome
+        run: |
+          npm install
+          npm run test
+
+      
+
+    
+  
+  
