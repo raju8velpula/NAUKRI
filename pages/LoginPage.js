@@ -13,6 +13,8 @@ class LoginPage {
 
   async clickLogin() {
     // Try several selectors to find the login link/button
+    let pageText= await this.page.locator('//*').allInnerTexts();
+    console.log("Page text: ", pageText.join(' '));
     await this.page.locator(`[title="Jobseeker Login"]`).click();
     }
 
