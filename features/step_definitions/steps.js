@@ -8,7 +8,7 @@ setDefaultTimeout(60 * 1000);
 let browser, context, page, loginPage, profilePage;
 
 Before(async function () {
-  browser = await chromium.launch({ headless: false,
+  browser = await chromium.launch({ headless: true,
     channel: 'chrome'
    });
   context = await browser.newContext();
