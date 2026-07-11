@@ -3,8 +3,9 @@ class LoginPage {
     this.page = page;
   }
 
-  async goto() {
-    await this.page.goto('https://www.naukri.com/', { waitUntil: 'load' });
+  async goto(url = 'https://www.naukri.com/') {
+    await this.page.goto(url, { waitUntil: 'load', timeout: 60000 });
+    await this.page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
     // try to close any initial popups that may block interactions
     await this.page.locator('.crossIcon').first().click({ timeout: 2000 }).catch(() => {});
     await this.page.locator('body').click({ timeout: 2000 }).catch(() => {});
