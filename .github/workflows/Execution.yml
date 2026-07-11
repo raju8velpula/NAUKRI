@@ -27,7 +27,7 @@ run-name: "Tag: ${{inputs.tag}}, Build: ${{inputs.build}}, run: ${{inputs.run}},
 jobs:
   raju-execution:
     timeout-minutes: 7200
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       LOCAL_PATH: /tmp/reports
     steps: 
